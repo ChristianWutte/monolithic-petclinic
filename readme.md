@@ -12,7 +12,7 @@ Find an Overview in this [PDF](https://github.com/gregorriegler/monolithic-petcl
 ## Working with the Monolithic Petclinic
 
 The following items should be installed in your system:
-* Java 8 or newer.
+* Java 8 or newer
 * git
 
 1) **Clone the repository**
