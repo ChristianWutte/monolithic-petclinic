@@ -22,20 +22,17 @@ public class ClinicService {
     private final OwnerRepository owners;
     private final PetRepository pets;
     private final VisitRepository visits;
-    private final VetRepository vets;
     private final RevenueRepository revenueRepository;
 
     public ClinicService(
         OwnerRepository owners,
         PetRepository pets,
         VisitRepository visits,
-        VetRepository vets,
         RevenueRepository revenueRepository
     ) {
         this.owners = owners;
         this.pets = pets;
         this.visits = visits;
-        this.vets = vets;
         this.revenueRepository = revenueRepository;
     }
 
@@ -58,10 +55,6 @@ public class ClinicService {
 
     public List<Visit> visitsByPetId(int petId) {
         return visits.findByPetId(petId);
-    }
-
-    public Collection<Vet> allVets() {
-        return this.vets.findAll();
     }
 
     public void save(Owner owner) {
