@@ -41,11 +41,6 @@ public class VetController {
     @Autowired
     private VetService vetService;
 
-    /**
-     * responds with the json:
-     * <p>
-     * { "message": "hello world" }
-     */
     @GetMapping("/vets")
     public ResponseEntity<List<VetDto>> getVets()
     {
