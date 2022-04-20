@@ -16,7 +16,6 @@
 package org.springframework.samples.vets.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.vets.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -32,11 +31,11 @@ import java.util.Map;
 class VetController {
 
     @Autowired
-    private VetService vetService;
+    private VetClient vetClient;
 
     @GetMapping("/vets")
     public String showVetList(Map<String, Object> model) {
-        model.put("vets", this.vetService.allVets());
+        model.put("vets", vetClient.retrieveVets() );
         return "vets/vetList";
     }
 

@@ -12,9 +12,6 @@ import org.springframework.web.client.RestTemplate;
 public class VetClient
 {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
-
     public List<VetDto> retrieveVets()
     {
         return Arrays.asList( new RestTemplate().getForObject( "http://localhost:8089/api/v1/vets", VetDto[].class ) );
