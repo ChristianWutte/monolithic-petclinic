@@ -13,30 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.vets;
+package org.springframework.samples.vets.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Map;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
+ * Models a {@link Vet Vet's} specialty (for example, dentistry).
+ *
  * @author Juergen Hoeller
- * @author Mark Fisher
- * @author Ken Krebs
- * @author Arjen Poutsma
  */
-@Controller
-class VetController {
-
-    @Autowired
-    private VetService vetService;
-
-    @GetMapping("/vets")
-    public String showVetList(Map<String, Object> model) {
-        model.put("vets", this.vetService.allVets());
-        return "vets/vetList";
-    }
+@Entity
+@Table(name = "specialties")
+public class Specialty extends NamedEntity
+{
 
 }

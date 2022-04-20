@@ -16,6 +16,7 @@
 package org.springframework.samples.vets;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.samples.vets.model.Vet;
 import org.springframework.util.SerializationUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
