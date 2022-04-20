@@ -15,6 +15,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collection;
 import java.util.List;
 
 public class WiremockDemoTest {
@@ -40,7 +41,7 @@ public class WiremockDemoTest {
                 .withHeader("Content-Type", "application/json")
                     .withBodyFile( "/api/vets_response.json" )));
 
-        List<VetDto> vets = vetClient.retrieveVets();
+        Collection<VetDto> vets = vetClient.retrieveAllVets();
         assertThat( vets ).isNotEmpty();
         assertThat(vets)
                 .filteredOn(vet -> vet.getId() == 3)

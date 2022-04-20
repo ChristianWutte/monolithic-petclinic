@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class VetService {
+public class VetService implements IVetService {
 
     @Autowired
     private VetRepository vets;
@@ -17,7 +17,7 @@ public class VetService {
     @Autowired
     private VetConverter vetConverter;
 
-    public Collection<VetDto> allVets() {
+    public Collection<VetDto> retrieveAllVets() {
         return this.vets.findAll().stream()
                 .map( vetConverter::convertFromDb )
                 .collect( Collectors.toList() );
