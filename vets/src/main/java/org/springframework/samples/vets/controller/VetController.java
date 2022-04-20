@@ -15,8 +15,15 @@
  */
 package org.springframework.samples.vets.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.samples.vets.VetService;
+import org.springframework.samples.vets.dto.VetDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,19 +47,9 @@ public class VetController {
      * { "message": "hello world" }
      */
     @GetMapping("/vets")
-    public ResponseData world() {
-        return new ResponseData("hello world");
+    public ResponseEntity<List<VetDto>> getVets()
+    {
+        return ResponseEntity.of( Optional.of( new ArrayList<>( vetService.allVets() ) ) );
     }
 
-    private static class ResponseData {
-        private final String message;
-
-        public ResponseData(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
 }
