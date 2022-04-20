@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.vets.dto;
+package org.springframework.samples.vets.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,8 +30,6 @@ import javax.persistence.Table;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
-import org.springframework.samples.vets.model.Person;
-import org.springframework.samples.vets.model.Specialty;
 
 /**
  * @author Ken Krebs
@@ -39,56 +37,38 @@ import org.springframework.samples.vets.model.Specialty;
  * @author Sam Brannen
  * @author Arjen Poutsma
  */
-
-public class VetDto
+@Entity
+@Table(name = "vets")
+public class Vet extends Person
 {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private List<SpecialtyDto> specialties;
 
-    public int getId()
-    {
-        return id;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))
+    private Set<Specialty> specialties;
+
+    protected Set<Specialty> getSpecialtiesInternal() {
+        if (this.specialties == null) {
+            this.specialties = new HashSet<>();
+        }
+        return this.specialties;
     }
 
-    public void setId( int id )
-    {
-        this.id = id;
-    }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public void setFirstName( String firstName )
-    {
-        this.firstName = firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public void setLastName( String lastName )
-    {
-        this.lastName = lastName;
-    }
-
-    public List<SpecialtyDto> getSpecialties()
-    {
-        return specialties;
-    }
-
-    public void setSpecialties( List<SpecialtyDto> specialties )
-    {
+    protected void setSpecialtiesInternal(Set<Specialty> specialties) {
         this.specialties = specialties;
     }
 
+    public List<Specialty> getSpecialties() {
+        List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
+        PropertyComparator.sort(sortedSpecs, new MutableSortDefinition("name", true, true));
+        return Collections.unmodifiableList(sortedSpecs);
+    }
+
     public int getNrOfSpecialties() {
-        return specialties.size();
+        return getSpecialtiesInternal().size();
+    }
+
+    public void addSpecialty(Specialty specialty) {
+        getSpecialtiesInternal().add(specialty);
     }
 
 }
